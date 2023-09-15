@@ -4,19 +4,23 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Book, BookDocument } from './schemas/book.schema';
 import { Model } from 'mongoose';
+import { Request } from 'express';
 
 @Injectable()
 export class BooksService {
   constructor(
     @InjectModel(Book.name) private readonly bookModel: Model<BookDocument>,
-  ) {}
+  ) { }
 
   async create(createBookDto: CreateBookDto): Promise<Book> {
     return this.bookModel.create(createBookDto);
   }
 
-  async findAll(): Promise<Book[]> {
-    return this.bookModel.find().exec();
+  async findAll(request: Request): Promise<Book[]> {
+    return this.bookModel
+      .find(request.query)
+      .setOptions({ sanitizeFilter: true })
+      .exec();
   }
 
   async findOne(id: string): Promise<Book> {
