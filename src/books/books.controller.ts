@@ -17,7 +17,7 @@ import { Request } from 'express';
 @Controller('books')
 @ApiTags('book')
 export class BooksController {
-  constructor(private readonly booksService: BooksService) { }
+  constructor(private readonly booksService: BooksService) {}
 
   @Post()
   create(@Body() createBookDto: CreateBookDto) {

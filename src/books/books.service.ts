@@ -10,7 +10,7 @@ import { Request } from 'express';
 export class BooksService {
   constructor(
     @InjectModel(Book.name) private readonly bookModel: Model<BookDocument>,
-  ) { }
+  ) {}
 
   async create(createBookDto: CreateBookDto): Promise<Book> {
     return this.bookModel.create(createBookDto);
