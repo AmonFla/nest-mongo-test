@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { CommentSchema } from './comment.schema';
 
 export type BookDocument = Book & Document;
 
@@ -25,6 +26,9 @@ export class Book {
 
   @Prop([String])
   keywords: string[];
+
+  @Prop([CommentSchema])
+  comments: Comment[];
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
